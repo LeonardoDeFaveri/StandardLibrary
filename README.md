@@ -3,13 +3,13 @@
 <h2>This library provides some constants and some macros that carry out the most basic and important tasks.</h2>
 
 <h3>CONSTANTS</h3>
-SYS_READ    equ 0
-SYS_WRITE   equ 1
-SYS_EXIT    equ 60
-
-STDOUT      equ 0
-STDIN       equ 1
-STDERR      equ 2
+SYS_READ    equ 0 <br>
+SYS_WRITE   equ 1 <br>
+SYS_EXIT    equ 60 <br>
+<br>
+STDOUT      equ 0 <br>
+STDIN       equ 1 <br>
+STDERR      equ 2 <br>
 
 <h3>MACRO</h3>
 <hr>
