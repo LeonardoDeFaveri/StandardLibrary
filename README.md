@@ -13,7 +13,8 @@ STDERR      equ 2 <br>
 
 <h3>MACROS</h3>
 <hr>
-getLength calculates the number of characters of a string, but it doesen't include the line terminator character.
+<b>getLength</b> 
+Calculates the number of characters of a string, but it doesen't include the line terminator character.
 
 Parameters:
 
@@ -24,7 +25,8 @@ Output:
 -length: r11
 
 <hr>
-print prints a string to the Standard Output, but it doesn't create a new line.
+<b>print</b>
+Prints a string to the Standard Output, but it doesn't create a new line.
 
 Parameters:
 
@@ -35,7 +37,8 @@ Output:
 -string: the string is printed to the screen (Standard Output)
 
 <hr>
-printLine prints a string to the Standard Output and creates a new line.
+<b>printLine</b>
+Prints a string to the Standard Output and creates a new line.
 
 Parameters:
 
@@ -46,7 +49,8 @@ Output:
 -string: the string is printed to the screen (Standard Output)
 
 <hr>
-printInt prints and integer to the screen, but it doesn't create a new line.
+<b>printInt</b>
+Prints and integer to the screen, but it doesn't create a new line.
 Parameters:
 
 %1: number to print
@@ -58,7 +62,8 @@ Output:
 -string: variable passed as parameter, the string is printed to the screen (Standard Output)
 
 <hr>
-printLineInt prints and integer to the screen and creates a new line.
+<b>printLineInt</b>
+Prints and integer to the screen and creates a new line.
 Parameters:
 
 %1: number to print
@@ -70,7 +75,8 @@ Output:
 -string: variable passed as parameter, the string is printed to the screen (Standard Output)
 
 <hr>
-intToString converts an integer into a string.
+<b>intToString</b>
+Converts an integer into a string.
 In a 64bits architecture the max number it can convert is:18446744073709551615.
 
 Parameters:
@@ -84,7 +90,8 @@ Output:
 -string: variable passed as parameter
 
 <hr>
-read reads a string of predefined length from the user's keyboard.
+<b>read</b>
+Reads a string of predefined length from the user's keyboard.
 
 Parameters:
 
@@ -98,7 +105,8 @@ Output:
 -string: variable passed as parameter
 
 <hr>
-exit terminates the program.
+<b>exit</b>
+Terminates the program.
 If the macro gets receives a arameter it terminates the program with an error code, otherwise it terminates the
 program with error code 0.
 
