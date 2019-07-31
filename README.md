@@ -1,10 +1,10 @@
+StandardLibrary
+
 This library provides some constants and some macros that carry out the most basic and important tasks.
 
 MACRO
 ------------------------------------------------------------------------------------------------------------------
-getLength
-
-This macro calculates the number of characters of a string, but it doesen't include the line terminator character.
+getLength calculates the number of characters of a string, but it doesen't include the line terminator character.
 
 Parameters:
 
@@ -15,9 +15,7 @@ Output:
 -length: r11
 
 ------------------------------------------------------------------------------------------------------------------
-print
-
-This macro prints a string to the Standard Output, but it doesn't create a new line.
+print prints a string to the Standard Output, but it doesn't create a new line.
 
 Parameters:
 
@@ -25,12 +23,10 @@ Parameters:
 
 Output:
 
--string: the string is printed to the scree 
+-string: the string is printed to the screen (Standard Output)
 
 ------------------------------------------------------------------------------------------------------------------
-printLine
-
-This macro prints a string to the Standard Output and creates a new line.
+printLine prints a string to the Standard Output and creates a new line.
 
 Parameters:
 
@@ -38,27 +34,34 @@ Parameters:
 
 Output:
 
--string: the string is printed to the screen
+-string: the string is printed to the screen (Standard Output)
 
 ------------------------------------------------------------------------------------------------------------------
-exit
-
-This macro terminates the program.
-If the macro gets receives a arameter it terminates the program with an error code, otherwise it terminates the
-program with error code 0.
-
+printInt prints and integer to the screen, but it doesn't create a new line.
 Parameters:
 
-%1: error code (integer)
+%1: number to print
+
+%2: varable where the string will be stored
 
 Output:
 
--The program is terminated.
+-string: variable passed as parameter, the string is printed to the screen (Standard Output)
 
 ------------------------------------------------------------------------------------------------------------------
-intToString
+printLineInt prints and integer to the screen and creates a new line.
+Parameters:
 
-This macro converts an integer into a string.
+%1: number to print
+
+%2: varable where the string will be stored
+
+Output:
+
+-string: variable passed as parameter, the string is printed to the screen (Standard Output)
+
+-------------------------------------------------------------------------------------------------------------------
+intToString converts an integer into a string.
 In a 64bits architecture the max number it can convert is:18446744073709551615.
 
 Parameters:
@@ -71,30 +74,17 @@ Output:
 
 -string: variable passed as parameter
 
-------------------------------------------------------------------------------------------------------------------
-printInt
+-----------------------------------------------------------------------------------------------------------------
+exit terminates the program.
+If the macro gets receives a arameter it terminates the program with an error code, otherwise it terminates the
+program with error code 0.
 
-This macro prints and integer to the screen, but it doesn't create a new line.
 Parameters:
 
-%1: number to print
-
-%2: varable where the string will be stored
+%1: error code (integer)
 
 Output:
 
--string: variable passed as parameter, the string is printed to the screen
+-The program is terminated. 
 
 ------------------------------------------------------------------------------------------------------------------
-printLineInt
-
-This macro prints and integer to the screen and creates a new line.
-Parameters:
-
-%1: number to print
-
-%2: varable where the string will be stored
-
-Output:
-
--string: variable passed as parameter, the string is printed to the screen
