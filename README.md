@@ -75,6 +75,20 @@ Output:
 -string: variable passed as parameter
 
 -----------------------------------------------------------------------------------------------------------------
+read reads a string of predefined length from the user's keyboard.
+
+Parameters:
+
+%1: variable where the string will be stored
+
+%2: number of characters to read, it must be left a byte free for the termination character,
+    or a Segmentation Error will be caused.
+
+Output:
+
+-string: variable passed as parameter
+
+------------------------------------------------------------------------------------------------------------------
 exit terminates the program.
 If the macro gets receives a arameter it terminates the program with an error code, otherwise it terminates the
 program with error code 0.
@@ -87,4 +101,4 @@ Output:
 
 -The program is terminated. 
 
-------------------------------------------------------------------------------------------------------------------
+<hr>

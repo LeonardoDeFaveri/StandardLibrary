@@ -116,6 +116,21 @@ STDERR      equ 2
     printLine %2
 %endmacro
 
+;read
+;Permettere di ricevere in input da tastiera una stringa di lunghezza definita.
+;
+;@param string stringa dove salvare i caratteri letti
+;@param int numero di caratteri che si possono leggere.
+;           bisogna comunque lasciare sempre un byte per il carattere di terminazione.
+
+%macro read 2
+    mov     rax, SYS_READ
+    mov     rdi, STDIN
+    mov     rsi, %1
+    mov     rdx, %2
+    syscall
+%endmacro
+
 ;exit
 ;Termina il programma quando tutto è andato a buon fine, 
 ;quindi restituisce 0 come codice di errore.
@@ -141,10 +156,11 @@ section .data
     msg db "11111222223333344444555556666677777888889999900000", 10
 
 section .bss
-    tmp    resb 100
+    tmp    resb 8
 section .text
     global _start
 
 _start:
-    printLineInt 1234556, tmp
+    read tmp, 8
+    print tmp
     exit
