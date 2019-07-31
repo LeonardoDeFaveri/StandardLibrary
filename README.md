@@ -1,9 +1,9 @@
-StandardLibrary
+<h1>StandardLibrary</h1>
 
-This library provides some constants and some macros that carry out the most basic and important tasks.
+<h2>This library provides some constants and some macros that carry out the most basic and important tasks.</h2>
 
 MACRO
-<hr>-
+<hr>
 getLength calculates the number of characters of a string, but it doesen't include the line terminator character.
 
 Parameters:
@@ -14,7 +14,7 @@ Output:
 
 -length: r11
 
-<hr>-
+<hr>
 print prints a string to the Standard Output, but it doesn't create a new line.
 
 Parameters:
@@ -25,7 +25,7 @@ Output:
 
 -string: the string is printed to the screen (Standard Output)
 
-<hr>-
+<hr>
 printLine prints a string to the Standard Output and creates a new line.
 
 Parameters:
@@ -36,7 +36,7 @@ Output:
 
 -string: the string is printed to the screen (Standard Output)
 
-<hr>-
+<hr>
 printInt prints and integer to the screen, but it doesn't create a new line.
 Parameters:
 
@@ -48,7 +48,7 @@ Output:
 
 -string: variable passed as parameter, the string is printed to the screen (Standard Output)
 
-<hr>-
+<hr>
 printLineInt prints and integer to the screen and creates a new line.
 Parameters:
 
@@ -60,7 +60,7 @@ Output:
 
 -string: variable passed as parameter, the string is printed to the screen (Standard Output)
 
-<hr>--
+<hr>
 intToString converts an integer into a string.
 In a 64bits architecture the max number it can convert is:18446744073709551615.
 
