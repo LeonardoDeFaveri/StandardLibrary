@@ -2,7 +2,16 @@
 
 <h2>This library provides some constants and some macros that carry out the most basic and important tasks.</h2>
 
-MACRO
+<h3>CONSTANTS</h3>
+SYS_READ    equ 0
+SYS_WRITE   equ 1
+SYS_EXIT    equ 60
+
+STDOUT      equ 0
+STDIN       equ 1
+STDERR      equ 2
+
+<h3>MACRO</h3>
 <hr>
 getLength calculates the number of characters of a string, but it doesen't include the line terminator character.
 
