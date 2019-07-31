@@ -11,7 +11,7 @@ STDOUT      equ 0 <br>
 STDIN       equ 1 <br>
 STDERR      equ 2 <br>
 
-<h3>MACRO</h3>
+<h3>MACROS</h3>
 <hr>
 getLength calculates the number of characters of a string, but it doesen't include the line terminator character.
 
