@@ -13,7 +13,7 @@ STDERR      equ 2 <br>
 
 <h3>MACROS</h3>
 <hr>
-<b>getLength</b> 
+<b>getLength</b>  <br>
 Calculates the number of characters of a string, but it doesen't include the line terminator character.
 
 Parameters:
@@ -25,7 +25,7 @@ Output:
 -length: r11
 
 <hr>
-<b>print</b>
+<b>print</b> <br>
 Prints a string to the Standard Output, but it doesn't create a new line.
 
 Parameters:
@@ -37,7 +37,7 @@ Output:
 -string: the string is printed to the screen (Standard Output)
 
 <hr>
-<b>printLine</b>
+<b>printLine</b> <br>
 Prints a string to the Standard Output and creates a new line.
 
 Parameters:
@@ -49,7 +49,7 @@ Output:
 -string: the string is printed to the screen (Standard Output)
 
 <hr>
-<b>printInt</b>
+<b>printInt</b> <br>
 Prints and integer to the screen, but it doesn't create a new line.
 Parameters:
 
@@ -62,7 +62,7 @@ Output:
 -string: variable passed as parameter, the string is printed to the screen (Standard Output)
 
 <hr>
-<b>printLineInt</b>
+<b>printLineInt</b> <br>
 Prints and integer to the screen and creates a new line.
 Parameters:
 
@@ -75,7 +75,7 @@ Output:
 -string: variable passed as parameter, the string is printed to the screen (Standard Output)
 
 <hr>
-<b>intToString</b>
+<b>intToString</b> <br>
 Converts an integer into a string.
 In a 64bits architecture the max number it can convert is:18446744073709551615.
 
@@ -90,7 +90,7 @@ Output:
 -string: variable passed as parameter
 
 <hr>
-<b>read</b>
+<b>read</b> <br>
 Reads a string of predefined length from the user's keyboard.
 
 Parameters:
@@ -105,7 +105,7 @@ Output:
 -string: variable passed as parameter
 
 <hr>
-<b>exit</b>
+<b>exit</b> <br>
 Terminates the program.
 If the macro gets receives a arameter it terminates the program with an error code, otherwise it terminates the
 program with error code 0.
