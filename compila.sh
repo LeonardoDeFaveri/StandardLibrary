@@ -1,4 +1,4 @@
-nasm -f elf64 standardlib.asm -o object.o
+nasm -f elf64 -F DWARF -g standardlib.asm -o object.o
 ld object.o -o exe
 if [ -e object.o ]
 then
