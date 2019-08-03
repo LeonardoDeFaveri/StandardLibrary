@@ -94,6 +94,63 @@ STDERR      equ 2
     
 %endmacro
 
+;stringToInt
+;Converte una stringa contenente solo cifre in un numero intero.
+;Se nella stringa non sono presenti solo cifre viene terminata l'esecuzion
+;del programma con il codice di errore: 100.
+;
+;@param string stringa da convertire.
+;@return int valore convertito (r11).
+
+%macro stringToInt 1
+    mov     r8, %1
+    mov     rax, 1          ;rax:   peso di ogni cifra
+    mov     r10, 10         ;r10:   passo per aumentare/diminuire il peso delle cire
+
+%%extractDigits:
+    mov     r12b, [r8]
+    inc     r8
+    cmp     r12, 10
+    je      %%initCalculation
+    
+    sub     r12, 48
+
+    cmp     r12, 0
+    jl      %%NaN_Error
+    cmp     r12, 9
+    jg      %%NaN_Error
+
+    push    r12
+    mul     r10
+    jmp     %%extractDigits
+
+%%initCalculation:
+    mov     r11, 0
+    div     r10
+    mov     r13, rax
+    mov     r14, rax
+
+%%calculateInt:
+    pop     r8
+    div     r13
+    mul     r8
+    add     r11, rax
+    
+    cmp     r13, 1
+    je      %%end
+
+    mov     rax, r13
+    div     r10
+    mov     r13, rax
+    mov     rax, r14
+    jmp     %%calculateInt
+
+%%NaN_Error:
+    exit 100
+
+%%end:
+%endmacro
+
 ;printInt
 ;Stampa un valore intero nello Standard Output senza andare a capo.
 ;
@@ -152,15 +209,15 @@ STDERR      equ 2
     syscall
 %endmacro
 
-section .data
-    msg db "11111222223333344444555556666677777888889999900000", 10
+;section .data
+;    msg db "14563", 10
 
-section .bss
-    tmp    resb 8
-section .text
-    global _start
+;section .bss
+;    tmp    resb 8
+;section .text
+;    global _start
 
-_start:
-    read tmp, 8
-    printLine tmp
-    exit
+;_start:
+;    stringToInt msg
+;    printLine tmp
+;    exit
