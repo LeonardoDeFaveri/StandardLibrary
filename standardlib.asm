@@ -162,5 +162,5 @@ section .text
 
 _start:
     read tmp, 8
-    print tmp
+    printLine tmp
     exit
