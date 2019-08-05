@@ -12,7 +12,6 @@ STDERR      equ 2
 ;
 ;@param string la stringa da stampare.
 ;@return lunghezza in byte della stringa (r11).
- 
 %macro getLength 1
     mov     r10, %1
     mov     r11, r10
@@ -31,7 +30,6 @@ STDERR      equ 2
 ;Stampa una stringa a nello Standard Output senza andare a capo.
 ;
 ;@param string stringa da stampare.
- 
 %macro print 1
     getLength %1
 
@@ -46,7 +44,6 @@ STDERR      equ 2
 ;Stampa una stringa a nello Standard Output e va a capo.
 ;
 ;@param string stringa da stampare.
- 
 %macro printLine 1
     getLength %1
     inc     r11
@@ -64,7 +61,6 @@ STDERR      equ 2
 ;@param int valore intero da convertire.
 ;@param string variabile dove salvare la stringa risultante.
 ;@return string stringa raffigurante il valore intero (%2).
- 
 %macro intToString 2
     mov     rax, %1
     mov     r11, %2
@@ -101,7 +97,6 @@ STDERR      equ 2
 ;
 ;@param string stringa da convertire.
 ;@return int valore convertito (r11).
-
 %macro stringToInt 1
     mov     r8, %1
     mov     rax, 1          ;rax:   peso di ogni cifra
@@ -156,7 +151,6 @@ STDERR      equ 2
 ;
 ;@param int valore da stampare.
 ;@param string stringa dove salvare il valore intero convertito in stringa.
- 
 %macro printInt 2
     intToString %1, %2
     print %2
@@ -167,7 +161,6 @@ STDERR      equ 2
 ;
 ;@param int valore da stampare.
 ;@param string stringa dove salvare il valore intero convertito in stringa.
- 
 %macro printLineInt 2
     intToString %1, %2
     printLine %2
@@ -179,7 +172,6 @@ STDERR      equ 2
 ;@param string stringa dove salvare i caratteri letti
 ;@param int numero di caratteri che si possono leggere.
 ;           bisogna comunque lasciare sempre un byte per il carattere di terminazione.
-
 %macro read 2
     mov     rax, SYS_READ
     mov     rdi, STDIN
@@ -188,10 +180,21 @@ STDERR      equ 2
     syscall
 %endmacro
 
+;readInt
+;Permette di ricevere in input dalla tastiera un numero intero.
+;
+;@param string stringa dove salvare i caratteri letti.
+;@param int numero di caratteri che si possono leggere.
+;           bisogna comunque lasciare sempre un byte per il carattere di terminazione.
+;@return int numero letto (r11)
+%macro readInt 2
+    read %1, %2
+    stringToInt %1
+%endmacro
+
 ;exit
 ;Termina il programma quando tutto è andato a buon fine, 
 ;quindi restituisce 0 come codice di errore.
- 
 %macro exit 0
     mov     rax, SYS_EXIT
     mov     rdi, 0
@@ -202,7 +205,6 @@ STDERR      equ 2
 ;Termina il programma restituiendo un codice di errore.
 ;
 ;@param int codice di errore da restituire.
- 
 %macro exit 1
     mov     rax, SYS_EXIT
     mov     rdi, %1
@@ -214,10 +216,11 @@ STDERR      equ 2
 
 ;section .bss
 ;    tmp    resb 8
+
 ;section .text
 ;    global _start
 
 ;_start:
-;    stringToInt msg
+;    read tmp, 8
 ;    printLine tmp
 ;    exit

@@ -120,6 +120,21 @@ Output:
 -string: variable passed as parameter
 
 <hr>
+<b>readInt</b> <br>
+Reads an integer from the user keyboard.
+
+Parameters:
+
+%1: variable where the string will be stored
+
+%2: number of characters to read, it must be left a byte free for the termination character,
+    or a Segmentation Error will be caused.
+
+Output:
+
+-int: r11
+
+<hr>
 <b>exit</b> <br>
 Terminates the program.
 If the macro gets receives a arameter it terminates the program with an error code, otherwise it terminates the
