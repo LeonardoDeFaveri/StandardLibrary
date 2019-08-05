@@ -90,6 +90,21 @@ Output:
 -string: variable passed as parameter
 
 <hr>
+<b>stringToInt</b> <br>
+Converts a string containing only digits into an integer number.
+If the string contains other characters besides digits, the program execution
+is stopped with error code: 100.
+In a 64bits architecture the max string it can convert is:"18446744073709551615".
+
+Parameters:
+
+%1: string to be converted
+
+Output:
+
+-int: r11
+
+<hr>
 <b>read</b> <br>
 Reads a string of predefined length from the user's keyboard.
 
@@ -103,6 +118,21 @@ Parameters:
 Output:
 
 -string: variable passed as parameter
+
+<hr>
+<b>readInt</b> <br>
+Reads an integer from the user keyboard.
+
+Parameters:
+
+%1: variable where the string will be stored
+
+%2: number of characters to read, it must be left a byte free for the termination character,
+    or a Segmentation Error will be caused.
+
+Output:
+
+-int: r11
 
 <hr>
 <b>exit</b> <br>
