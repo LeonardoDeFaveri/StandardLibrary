@@ -344,7 +344,9 @@ section .data
 %endmacro
 
 section .text
-    global _start
+;    global _start
 
-_start:
-    exit
+;_start:
+;    readChar
+;    printChar r11
+;    exit
