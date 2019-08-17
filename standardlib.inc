@@ -342,11 +342,3 @@ section .data
     mov     rdi, %1
     syscall
 %endmacro
-
-section .text
-;    global _start
-
-;_start:
-;    readChar
-;    printChar r11
-;    exit
