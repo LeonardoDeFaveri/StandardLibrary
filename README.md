@@ -25,8 +25,20 @@ Output:
 -length: r11
 
 <hr>
+<b>printChar</b> <br>
+Prints a charcter to the screen, without creating a new line.
+
+Parameters:
+
+%1: character to print
+
+Output:
+
+-char: the character is printed to the screen (Standard Output).
+
+<hr>
 <b>print</b> <br>
-Prints a string to the Standard Output, but it doesn't create a new line.
+Prints a string to the screen, but it doesn't create a new line.
 
 Parameters:
 
@@ -38,7 +50,7 @@ Output:
 
 <hr>
 <b>printLine</b> <br>
-Prints a string to the Standard Output and creates a new line.
+Prints a string to the screen and creates a new line.
 
 Parameters:
 
@@ -103,6 +115,14 @@ Parameters:
 Output:
 
 -int: r11
+
+<hr>
+<b>readChar</b> <br>
+Reads a character from the user's keyboard.
+
+Output:
+
+-char: r11
 
 <hr>
 <b>read</b> <br>

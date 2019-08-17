@@ -1,10 +1,31 @@
 SYS_READ    equ 0
 SYS_WRITE   equ 1
+SYS_POLL    equ 7
+SYS_IOCTL   equ 16
 SYS_EXIT    equ 60
 
 STDOUT      equ 0
 STDIN       equ 1
 STDERR      equ 2
+
+ICANON      equ 2            
+ECHO        equ 8
+TCGETS      equ 21505       ;attribute to get structure
+TCPUTS      equ 21506       ;attribute to send structure
+
+section .bss
+    __stty    resb 12       ;termios size - 60 bytes
+    __slflag  resb 4        ;__slflag is located fourth after 3 * 4 bytes of memory
+    __srest   resb 44
+
+    __tty     resb 12
+    __lflag   resb 4
+    __brest   resb 44
+
+section .data
+    __fd      dd 0
+    __sym     db 1
+
 
 ;getLength
 ;Restituisce il numero di byte che compongono una 
@@ -26,8 +47,20 @@ STDERR      equ 2
     sub     r11, r10
 %endmacro
 
+;printChar
+;stampa un solo carattere a schermo senza adndare a capo.
+;
+;@param char carattere da stampare
+%macro printChar 1
+    mov     rax, SYS_WRITE
+    mov     rdi, STDOUT
+    mov     rsi, %1
+    mov     rdx, 1
+    syscall
+%endmacro
+
 ;print
-;Stampa una stringa a nello Standard Output senza andare a capo.
+;Stampa una stringa a schermo senza andare a capo.
 ;
 ;@param string stringa da stampare.
 %macro print 1
@@ -41,7 +74,7 @@ STDERR      equ 2
 %endmacro
 
 ;printLine
-;Stampa una stringa a nello Standard Output e va a capo.
+;Stampa una stringa a schermo e va a capo.
 ;
 ;@param string stringa da stampare.
 %macro printLine 1
@@ -166,6 +199,105 @@ STDERR      equ 2
     printLine %2
 %endmacro
 
+;ReadChar
+;Legge un carattere da tastiera.
+;
+;@return carattere letto (r11).
+%macro readChar 0
+    call %%setnoncan
+    call %%poll
+    call %%setcan
+    jmp %%end
+
+%%setnoncan:      
+    push    __stty
+    call    %%tcgetattr
+    push    __tty
+    call    %%tcgetattr
+    and     dword[__lflag], (~ICANON)
+    and     dword[__lflag], (~ECHO)
+    call    %%tcsetattr
+    add     rsp, 16
+    ret
+
+%%setcan:
+    push    __stty
+    call    %%tcsetattr
+    add     rsp, 8
+    ret
+
+%%tcgetattr:
+    mov     rdx, qword[rsp+8]
+    push    rax
+    push    rbx
+    push    rcx
+    push    rdi
+    push    rsi
+    mov     rax, SYS_IOCTL
+    mov     rdi, 0
+    mov     rsi, TCGETS
+    syscall
+    pop     rsi
+    pop     rdi
+    pop     rcx
+    pop     rbx
+    pop     rax
+    ret
+
+%%tcsetattr:
+    mov     rdx, qword[rsp+8]
+    push    rax
+    push    rbx
+    push    rcx
+    push    rdi
+    push    rsi
+    mov     rax, SYS_IOCTL
+    mov     rdi, 0
+    mov     rsi, TCPUTS
+    syscall
+    pop     rsi
+    pop     rdi
+    pop     rcx
+    pop     rbx
+    pop     rax
+    ret
+
+%%poll:   
+    nop
+    push    rbx
+    push    rcx
+    push    rdx
+    push    rdi
+    push    rsi
+    mov     rax, SYS_POLL
+    mov     rdi, __fd       ;Puntatore alla struttura
+    mov     rsi, 1          ;Numero di Thread
+    mov     rdx, 10000      ;Tempo di attesa massimo
+    syscall
+    ;Controlla che il valore restituito sia 0
+    test    rax, rax
+    jz      %%e
+    ;Se ci sono dati, fa una chiamata a SYS_READ
+    mov     rax, 0
+    mov     rdi, 0
+    mov     rsi, __sym   
+    mov     rdx, 1
+    syscall
+    xor     rax, rax
+    mov     al, byte[__sym]    ;Restituisce il codice del carattere se è stato letto.
+%%e:     
+    pop     rsi
+    pop     rdi
+    pop     rdx
+    pop     rcx
+    pop     rbx
+    ret
+
+%%end:
+    mov     r11, __sym
+%endmacro
+
+
 ;read
 ;Permettere di ricevere in input da tastiera una stringa di lunghezza definita.
 ;
@@ -211,16 +343,8 @@ STDERR      equ 2
     syscall
 %endmacro
 
-;section .data
-;    msg db "14563", 10
+section .text
+    global _start
 
-;section .bss
-;    tmp    resb 8
-
-;section .text
-;    global _start
-
-;_start:
-;    read tmp, 8
-;    printLine tmp
-;    exit
+_start:
+    exit
