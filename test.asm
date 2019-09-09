@@ -1,15 +1,17 @@
 %include "./standardlib.inc"
 
 section .data
-    msg     db "Ciao", 10
+    filename db "./file.txt", 0
+    msg     db "prova", 10
+    delay   dq 5, 500000000
 
 section .bss
-    temp    resb 10
+    temp    resb 100
 
 section .text
     global _start:
 
-_start:
-    readChar
-    printChar r11
+    _start:
+    sleep delay
+
     exit

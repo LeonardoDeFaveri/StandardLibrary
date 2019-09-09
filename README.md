@@ -155,9 +155,131 @@ Output:
 -int: r11
 
 <hr>
+<b>fileOpen</b> <br>
+Opens a file and returns its file descriptor.
+
+Parameters:
+
+%1: path of the file (string 0 terminated).
+
+%2: value of the flag to use to open the file.
+%3: octal value to indicates the file permissions.
+
+Output:
+
+-int r11
+
+<hr>
+<b>filePrint</b> <br>
+Writes a line into a file, without creating a new line.
+
+Parameters:
+
+%1: file descriptor of the file in which write into.
+
+%2: string to write into the file.
+
+Output:
+
+The string is printed into the file
+
+<hr>
+<b>filePrintLine</b> <br>
+Writes a line into a file, and creates a new line.
+
+Parameters:
+
+%1: file descriptor of the file in which write into.
+
+%2: string to write into the file.
+
+Output:
+
+The string is printed into the file
+
+<hr>
+<b>fileRead</b> <br>
+Reads some characters from the file and return the number of characters read.
+
+Paramters:
+
+%1: file descriptor of the file from which read.
+
+%2: variable where the string will be stored.
+
+%3: number of characters to read, it should be left a byte free for the termination character.
+
+Output:
+
+-int r11
+
+<hr>
+<b>fileClose</b> <br>
+Closes a file.
+
+Paramters:
+
+%1: file descriptor of the file to close.
+
+Output:
+
+-The file is closed.
+
+<hr>
+<b>fileGetOffset</b> <br>
+Return the actual offset of the file cursor.
+
+Parameters:
+
+%1: file descriptor of the file.
+
+Output:
+
+-int r11
+
+<hr>
+<b>fileMoveToBeginning</b> <br>
+Moves the file cursor to the beginning of the file, and returns the new offset.
+
+Paramters:
+
+%1: file descriptor of the file.
+
+Output:
+
+-int r11
+
+<hr>
+<b>fileMoveToEnd</b> <br>
+Moves the file cursor to the end of the file, and returns the new offset.
+
+Paramters:
+
+%1: file descriptor of the file.
+
+Output:
+
+-int r11
+
+<hr>
+<b>sleep</b> <br>
+It pauses the program execution from some time.
+
+Paramters:
+
+%1: timespec structure that indicates the pause length.
+
+%2: timespec structure that holds the remaining pause time, but it is optional because it is usefull only
+    when the pause can be stopped and is necessary to finish the pause after the pause break.
+
+Output:
+
+-The program execution stops for a while.
+
+<hr>
 <b>exit</b> <br>
 Terminates the program.
-If the macro gets receives a arameter it terminates the program with an error code, otherwise it terminates the
+If the macro receives a parameter it terminates the program with an error code, otherwise it terminates the
 program with error code 0.
 
 Parameters:
@@ -169,3 +291,7 @@ Output:
 -The program is terminated. 
 
 <hr>
+
+
+
+<em>More info about the macros into the file standardlib.inc</em>
