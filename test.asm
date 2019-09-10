@@ -2,16 +2,21 @@
 
 section .data
     filename db "./file.txt", 0
-    msg     db "prova", 10
-    delay   dq 5, 500000000
+    msg      db "Ciao",10, "come va?"
 
 section .bss
-    temp    resb 100
+    buffer resb 100
 
 section .text
     global _start:
 
     _start:
-    sleep delay
-
-    exit
+        fileOpen filename, O_APPEND+O_RDWR, 0777o
+        push    rax
+        fileRead [rsp], buffer, 100
+        filePrintLine [rsp], msg
+        fileMoveToBeginning [rsp]
+        fileRead [rsp], buffer, 100
+        fileClose [rsp]
+        printLine buffer
+        exit

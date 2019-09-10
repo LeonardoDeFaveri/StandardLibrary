@@ -31,22 +31,23 @@ TCGETS          equ 21505       ;Attributo per ottenere la struttura
 TCPUTS          equ 21506       ;Attributo per inviare la struttura
 
 section .bss
-    __stty    resb 12       ;Dimensione dlla struttura termios - 60 byte
-    __slflag  resb 4        ;__slflag si trova al quarto posto in memoria dopo 3 gruppi da 4 byte
-    __srest   resb 44
+    __stty      resb 12           ;Dimensione dlla struttura termios - 60 byte
+    __slflag    resb 4            ;__slflag si trova al quarto posto in memoria dopo 3 gruppi da 4 byte
+    __srest     resb 44
 
-    __tty     resb 12
-    __lflag   resb 4
-    __brest   resb 44
+    __tty       resb 12
+    __lflag     resb 4
+    __brest     resb 44
 
 section .data
-    __fd      dd 0
-    __sym     db 1
+    __LF        db 10
+    __fd        dd 0
+    __sym       db 1
 
 
 ;getLength
 ;Restituisce il numero di byte che compongono una 
-;stringa senza includere il carattere di terminazione.
+;stringa senza includere il carattere di terminazione (0).
 ;
 ;@param string la stringa da stampare.
 ;@return lunghezza in byte della stringa (r11).
@@ -55,13 +56,21 @@ section .data
     mov     r11, r10
 
     %%begin:
-        cmp     byte [r11], 10
+        cmp     byte [r11], 0
         je      %%end
         inc     r11
         jmp     %%begin
 
     %%end:
         sub     r11, r10
+%endmacro
+
+%macro printNewLine 1
+    mov     rax, SYS_WRITE
+    mov     rdi, %1
+    mov     rsi, __LF
+    mov     rdx, 1
+    syscall
 %endmacro
 
 ;printChar
@@ -96,13 +105,14 @@ section .data
 ;@param string stringa da stampare.
 %macro printLine 1
     getLength %1
-    inc     r11
 
     mov     rax, SYS_WRITE
     mov     rdi, STDIN
     mov     rsi, %1
     mov     rdx, r11
     syscall
+
+    printNewLine STDOUT
 %endmacro
 
 ;intToString
@@ -349,8 +359,6 @@ section .data
 ;@param octal permessi per il file.
 ;@return int file descriptor (r11)
 %macro fileOpen 3
-    push    rax
-
     mov     rax, SYS_OPEN
     mov     rdi, %1
     mov     rsi, %2
@@ -358,7 +366,6 @@ section .data
     syscall
 
     mov     r11, rax
-    pop rax
 %endmacro
 
 ;filePrint
@@ -383,13 +390,14 @@ section .data
 ;@param string  testo da scrivere.
 %macro filePrintLine 2
     getLength %2
-    inc     r11
 
     mov     rax, SYS_WRITE
     mov     rdi, %1
     mov     rsi, %2
     mov     rdx, r11
     syscall
+
+    printNewLine %1
 %endmacro
 
 ;fileRead
