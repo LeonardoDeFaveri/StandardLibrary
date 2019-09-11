@@ -30,9 +30,11 @@ ECHO            equ 8
 TCGETS          equ 21505       ;Attributo per ottenere la struttura
 TCPUTS          equ 21506       ;Attributo per inviare la struttura
 
+STR_TERMINATOR  equ 0           ;ASCII del carattere terminatore di stringa
+
 section .bss
-    __stty      resb 12           ;Dimensione dlla struttura termios - 60 byte
-    __slflag    resb 4            ;__slflag si trova al quarto posto in memoria dopo 3 gruppi da 4 byte
+    __stty      resb 12         ;Dimensione dlla struttura termios - 60 byte
+    __slflag    resb 4          ;__slflag si trova al quarto posto in memoria dopo 3 gruppi da 4 byte
     __srest     resb 44
 
     __tty       resb 12
@@ -56,8 +58,8 @@ section .data
     mov     r11, r10
 
     %%begin:
-        cmp     byte [r11], 0
-        je      %%end
+        cmp     byte [r11], STR_TERMINATOR
+            je      %%end
         inc     r11
         jmp     %%begin
 
@@ -126,8 +128,8 @@ section .data
     mov     r11, %2
     mov     r12, 10
 
-    push    r12
-
+    push    STR_TERMINATOR
+    
     %%extractDigits:
         mov     rdx, 0
         div     r12
@@ -135,8 +137,8 @@ section .data
 
         push    rdx
 
-        cmp     rax, 0
-        jne     %%extractDigits
+        cmp     rax, STR_TERMINATOR
+            jne     %%extractDigits
 
     %%popDigits:
         pop     r10
@@ -145,8 +147,8 @@ section .data
         inc     r11
         mov     [r11], r11
 
-        cmp     r10, 10
-        jne     %%popDigits
+        cmp     r10, STR_TERMINATOR
+            jne     %%popDigits
     
 %endmacro
 
@@ -165,8 +167,8 @@ section .data
     %%extractDigits:
         mov     r12b, [r8]
         inc     r8
-        cmp     r12, 10
-        je      %%initCalculation
+        cmp     r12, STR_TERMINATOR
+            je      %%initCalculation
         
         sub     r12, 48
 
