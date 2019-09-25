@@ -14,7 +14,7 @@ STDERR      equ 2 <br>
 <h3>MACROS</h3>
 <hr>
 <b>getLength</b>  <br>
-Calculates the number of characters of a string, but it doesen't include the line terminator character.
+Calculates the number of characters of a string, but it doesn't include the line terminator character.
 
 Parameters:
 
