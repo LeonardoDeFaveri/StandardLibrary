@@ -76,7 +76,7 @@ section .data
 %endmacro
 
 ;printChar
-;stampa un solo carattere a schermo senza adndare a capo.
+;stampa un solo carattere a schermo senza andare a capo.
 ;
 ;@param char carattere da stampare
 %macro printChar 1
